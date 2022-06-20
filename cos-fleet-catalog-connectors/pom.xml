@@ -30,7 +30,7 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-container-image-jib</artifactId>
+            <artifactId>quarkus-container-image-docker</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -299,6 +299,7 @@
             <properties>
                 <quarkus.container-image.build>true</quarkus.container-image.build>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
+                <quarkus.docker.dockerfile-jvm-path>${maven.multiModuleProjectDirectory}/etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
@@ -327,6 +328,7 @@
             <properties>
                 <quarkus.container-image.push>true</quarkus.container-image.push>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
+                <quarkus.docker.dockerfile-jvm-path>${maven.multiModuleProjectDirectory}/etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
