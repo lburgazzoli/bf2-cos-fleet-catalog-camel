@@ -20,8 +20,6 @@
         <quarkus.container-image.registry>${cos.connector.container.repository}</quarkus.container-image.registry>
         <quarkus.container-image.group>${cos.connector.container.organization}</quarkus.container-image.group>
 
-        <quarkus.jib.jvm-arguments>-XX:+UseShenandoahGC,-Djava.util.logging.manager=org.jboss.logmanager.LogManager</quarkus.jib.jvm-arguments>
-
         <cos.catalog.validation.mode>FAIL</cos.catalog.validation.mode>
         <cos.catalog.path>${cos.connector.catalog.root}/connector-catalog-camel-${cos.connector.catalog.group}</cos.catalog.path>
         <cos.catalog.manifests>${project.basedir}/src/generated/resources/META-INF/connectors</cos.catalog.manifests>
@@ -30,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-container-image-jib</artifactId>
+            <artifactId>quarkus-container-image-docker</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -299,6 +297,7 @@
             <properties>
                 <quarkus.container-image.build>true</quarkus.container-image.build>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
+                <quarkus.docker.dockerfile-jvm-path>${project.basedir}/../../../etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
@@ -327,6 +326,7 @@
             <properties>
                 <quarkus.container-image.push>true</quarkus.container-image.push>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
+                <quarkus.docker.dockerfile-jvm-path>${project.basedir}/../../../etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
