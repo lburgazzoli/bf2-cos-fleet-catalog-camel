@@ -1,0 +1,40 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+    <id>dist</id>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <baseDirectory>connector</baseDirectory>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/quarkus-app</directory>
+            <outputDirectory>target/quarkus-app</outputDirectory>
+            <excludes>
+                <exclude>quarkus-app-dependencies.txt</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${cos.catalog.manifests}</directory>
+            <includes>
+                <include>*.json</include>
+            </includes>
+            <outputDirectory>definitions</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <files>
+        <file>
+            <source>${project.build.directory}/quarkus-app/quarkus-app-dependencies.txt</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>dependencies.txt</destName>
+        </file>
+        <file>
+            <source>${maven.multiModuleProjectDirectory}/etc/Dockerfile.jvm</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>Dockerfile</destName>
+        </file>
+    </files>
+</assembly>

@@ -297,7 +297,7 @@
             <properties>
                 <quarkus.container-image.build>true</quarkus.container-image.build>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
-                <quarkus.docker.dockerfile-jvm-path>${project.basedir}/../../../etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
+                <quarkus.docker.dockerfile-jvm-path>${maven.multiModuleProjectDirectory}/etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
@@ -318,6 +318,7 @@
                 </pluginManagement>
             </build>
         </profile>
+
         <profile>
             <id>container-push</id>
             <activation>
@@ -326,7 +327,7 @@
             <properties>
                 <quarkus.container-image.push>true</quarkus.container-image.push>
                 <quarkus.container-image.additional-tags>${git.commit.id}</quarkus.container-image.additional-tags>
-                <quarkus.docker.dockerfile-jvm-path>${project.basedir}/../../../etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
+                <quarkus.docker.dockerfile-jvm-path>${maven.multiModuleProjectDirectory}/etc/Dockerfile.jvm</quarkus.docker.dockerfile-jvm-path>
             </properties>
             <build>
                 <pluginManagement>
@@ -347,15 +348,15 @@
                 </pluginManagement>
             </build>
         </profile>
+
         <profile>
-            <id>fat-jar</id>
+            <id>dist</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <quarkus.container-image.build>false</quarkus.container-image.build>
-                <quarkus.package.type>uber-jar</quarkus.package.type>
-                <quarkus.package.output-name>connector</quarkus.package.output-name>
+                <quarkus.container-image.push>false</quarkus.container-image.push>
             </properties>
             <build>
                 <pluginManagement>
@@ -369,6 +370,24 @@
                                     <goals>
                                         <goal>generate-app</goal>
                                     </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-assembly-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>single</goal>
+                                    </goals>
+                                    <configuration>
+                                        <appendAssemblyId>true</appendAssemblyId>
+                                        <descriptors>
+                                            <descriptor>${maven.multiModuleProjectDirectory}/etc/distribution.xml</descriptor>
+                                        </descriptors>
+                                    </configuration>
                                 </execution>
                             </executions>
                         </plugin>
