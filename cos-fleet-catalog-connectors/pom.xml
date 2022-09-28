@@ -42,6 +42,14 @@
             <artifactId>camel-k-runtime</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-knative-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.k</groupId>
+            <artifactId>camel-k-knative-producer</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-yaml-dsl</artifactId>
         </dependency>
